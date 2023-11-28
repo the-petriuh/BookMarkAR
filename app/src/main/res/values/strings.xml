@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">BookMarkAR</string>
+    <string name="add_word">add new annotation</string>
+    <string name="hint_book_name">Book Name</string>
+    <string name="hint_book_annotation">Text You Want To Add</string>
+    <string name="hint_book_page">Book Name</string>
+    <string name="button_save">Save</string>
+    <string name="empty_not_saved">Word not saved because it is empty.</string>
+    <string name="camera_to_get_new_annotation">Camera to get new annotation</string>
+</resources>
