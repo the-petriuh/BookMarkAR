@@ -65,4 +65,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    companion object {
+        const val TAG = "CameraXDemo"
+    }
 }
