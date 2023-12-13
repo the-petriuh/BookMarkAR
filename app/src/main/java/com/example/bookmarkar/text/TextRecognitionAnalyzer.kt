@@ -18,7 +18,7 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
 class TextRecognitionAnalyzer(
-    private val onDetectedTextUpdated: (String) -> Unit
+    private val onDetectedTextUpdated: (Text) -> Unit
 ) : ImageAnalysis.Analyzer {
 
     companion object {
@@ -37,10 +37,7 @@ class TextRecognitionAnalyzer(
             suspendCoroutine { continuation ->
                 textRecognizer.process(inputImage)
                     .addOnSuccessListener { visionText: Text ->
-                        val detectedText: String = visionText.text
-                        if (detectedText.isNotBlank()) {
-                            onDetectedTextUpdated(detectedText)
-                        }
+                        onDetectedTextUpdated(visionText)
                     }
                     .addOnCompleteListener {
                         continuation.resume(Unit)

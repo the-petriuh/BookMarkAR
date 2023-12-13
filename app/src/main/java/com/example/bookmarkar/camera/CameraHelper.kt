@@ -11,6 +11,8 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.*
+import androidx.camera.core.resolutionselector.AspectRatioStrategy
+import androidx.camera.core.resolutionselector.ResolutionSelector
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.app.ActivityCompat
@@ -21,11 +23,14 @@ import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
 import com.example.bookmarkar.MainActivity.Companion.TAG
+import com.example.bookmarkar.text.TextRecognitionAnalyzer
+import com.google.mlkit.vision.text.Text
 
 class CameraHelper(
     private val owner: AppCompatActivity,
     private val context: Context,
-    private val viewFinder: PreviewView
+    private val viewFinder: PreviewView,
+    private val onDetectedTextUpdated: (Text) -> Unit
 ) {
 
     private var cameraExecutor: ExecutorService = Executors.newSingleThreadExecutor()
@@ -71,14 +76,15 @@ class CameraHelper(
 
         val cameraSelector = CameraSelector.Builder().requireLensFacing(lensFacing).build()
         val previewView = getPreviewUseCase()
+        val textRecognizer = getTextRecognizerUseCase()
 
         cameraProvider.unbindAll()
-
         try {
             camera = cameraProvider.bindToLifecycle(
                 owner,
                 cameraSelector,
-                previewView
+                previewView,
+                textRecognizer
             )
 
             previewView.setSurfaceProvider(viewFinder.surfaceProvider)
@@ -111,6 +117,19 @@ class CameraHelper(
             .setTargetAspectRatio(aspectRatio())
             .setTargetRotation(viewFinder.display.rotation)
             .build()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.R)
+    private fun getTextRecognizerUseCase(): ImageAnalysis {
+        val analyzer = ImageAnalysis.Builder()
+            .setTargetAspectRatio(aspectRatio())
+            .setTargetRotation(viewFinder.display.rotation)
+            .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
+            .setImageQueueDepth(10)
+            .build()
+
+        analyzer.setAnalyzer(cameraExecutor, TextRecognitionAnalyzer(onDetectedTextUpdated))
+        return analyzer
     }
 
     @RequiresApi(Build.VERSION_CODES.R)
