@@ -4,15 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.annotation.RequiresApi
-import androidx.camera.core.CameraSelector
-import androidx.camera.core.Preview
-import androidx.camera.lifecycle.ProcessCameraProvider
-import androidx.core.content.ContextCompat
 import com.example.bookmarkar.camera.CameraHelper
 import com.example.bookmarkar.databinding.ActivityNewAnnotationBinding
 import com.google.mlkit.vision.text.Text
-import com.google.mlkit.vision.text.TextRecognition
-import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 import com.example.bookmarkar.MainActivity.Companion.TAG
 
 class NewAnnotationActivity : AppCompatActivity() {
@@ -46,8 +40,7 @@ class NewAnnotationActivity : AppCompatActivity() {
     }
 
     private fun onDetectedTextUpdated(visionText: Text) {
-        //Log.d(TAG, "recognized text: ${visionText.text}")
-        viewBinding.txvDetectedText.text = visionText.text
+        Log.d(TAG, "detected text: $visionText")
     }
 
     override fun onDestroy() {

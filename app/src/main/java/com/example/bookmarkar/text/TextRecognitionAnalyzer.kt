@@ -38,6 +38,8 @@ class TextRecognitionAnalyzer(
                 textRecognizer.process(inputImage)
                     .addOnSuccessListener { visionText: Text ->
                         onDetectedTextUpdated(visionText)
+                        // get detected text position and draw rectangle on it
+                        // drawTextOnImage(visionText, imageProxy.imageInfo.rotationDegrees)
                     }
                     .addOnCompleteListener {
                         continuation.resume(Unit)
