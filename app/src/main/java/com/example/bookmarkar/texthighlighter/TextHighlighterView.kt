@@ -4,19 +4,19 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.Rect
 import android.util.AttributeSet
 import android.view.View
 
 
 class TextHighlighterView : View {
     private var paint: Paint? = null
+    private val targets: MutableList<Rect> = ArrayList()
 
     constructor(context: Context?) : super(context) {
-        init()
     }
 
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
-        init()
     }
 
     constructor(context: Context?, attrs: AttributeSet?, defStyle: Int) : super(
@@ -24,10 +24,9 @@ class TextHighlighterView : View {
         attrs,
         defStyle
     ) {
-        init()
     }
 
-    private fun init() {
+    init {
         paint = Paint()
         paint!!.color = Color.parseColor("#FFEA00") // Set the color to red with full opacity
         paint!!.style = Paint.Style.FILL
@@ -37,6 +36,18 @@ class TextHighlighterView : View {
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         // Draw a transparent rectangle at position (left, top, right, bottom)
-        canvas.drawRect(100f, 100f, 300f, 300f, paint!!)
+        synchronized(this) {
+            for (entry in targets) {
+                canvas.drawRect(entry, paint!!)
+            }
+        }
+    }
+
+    public fun setTargets(sources: List<Rect>) {
+        synchronized(this) {
+            targets.clear()
+            targets.addAll(sources)
+            this.postInvalidate()
+        }
     }
 }

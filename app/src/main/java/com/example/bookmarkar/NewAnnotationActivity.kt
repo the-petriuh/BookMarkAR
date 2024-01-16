@@ -1,4 +1,5 @@
 package com.example.bookmarkar
+import android.graphics.Rect
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,11 +9,13 @@ import com.example.bookmarkar.camera.CameraHelper
 import com.example.bookmarkar.databinding.ActivityNewAnnotationBinding
 import com.google.mlkit.vision.text.Text
 import com.example.bookmarkar.MainActivity.Companion.TAG
+import kotlin.math.log
 
 class NewAnnotationActivity : AppCompatActivity() {
 
     private lateinit var viewBinding: ActivityNewAnnotationBinding
     private lateinit var cameraHelper: CameraHelper
+    private var textRects: MutableList<Rect> = mutableListOf()
 
     @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,7 +43,14 @@ class NewAnnotationActivity : AppCompatActivity() {
     }
 
     private fun onDetectedTextUpdated(visionText: Text) {
-        Log.d(TAG, "detected text: $visionText")
+        textRects.clear()
+
+        for (block in visionText.textBlocks) {
+            Log.d(TAG, "rectangle: ${block.boundingBox}")
+            //textRects.add(block.boundingBox!!)
+        }
+
+        //viewBinding.cvTextHighlighter.setTargets(textRects.toList())
     }
 
     override fun onDestroy() {

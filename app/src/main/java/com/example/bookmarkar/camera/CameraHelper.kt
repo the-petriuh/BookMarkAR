@@ -24,6 +24,7 @@ import kotlin.math.max
 import kotlin.math.min
 import com.example.bookmarkar.MainActivity.Companion.TAG
 import com.example.bookmarkar.text.TextRecognitionAnalyzer
+import com.example.bookmarkar.texthighlighter.TextHighlighterView
 import com.google.mlkit.vision.text.Text
 
 class CameraHelper(

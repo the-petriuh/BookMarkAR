@@ -1,10 +1,12 @@
 package com.example.bookmarkar.text
 
+import android.graphics.Rect
 import android.media.Image
 import androidx.annotation.OptIn
 import androidx.camera.core.ExperimentalGetImage
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
+import com.example.bookmarkar.texthighlighter.TextHighlighterView
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.Text
 import com.google.mlkit.vision.text.TextRecognition
@@ -38,8 +40,6 @@ class TextRecognitionAnalyzer(
                 textRecognizer.process(inputImage)
                     .addOnSuccessListener { visionText: Text ->
                         onDetectedTextUpdated(visionText)
-                        // get detected text position and draw rectangle on it
-                        // drawTextOnImage(visionText, imageProxy.imageInfo.rotationDegrees)
                     }
                     .addOnCompleteListener {
                         continuation.resume(Unit)
