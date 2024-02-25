@@ -14,8 +14,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <com.example.bookmarkar.texthighlighter.TextHighlighterView
+    <com.example.bookmarkar.text.TextHighlighterView
         android:id="@+id/cv_text_highlighter"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.example.bookmarkar.text.HighlighterAreaView
+        android:id="@+id/cv_highlighter_area"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

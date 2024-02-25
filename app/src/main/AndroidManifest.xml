@@ -20,6 +20,11 @@
         android:theme="@style/Theme.BookMarkAR"
         tools:targetApi="31">
         <activity
+            android:name=".EditAnnotationActivity"
+            android:exported="false"
+            android:label="@string/title_activity_edit_annotation"
+            android:theme="@style/Theme.BookMarkAR" />
+        <activity
             android:name=".NewAnnotationActivity"
             android:exported="false" />
         <activity

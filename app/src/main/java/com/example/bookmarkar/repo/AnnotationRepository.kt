@@ -13,4 +13,8 @@ class AnnotationRepository(private val annotationDao: AnnotationDao) {
     suspend fun insert(annotation: Annotation) {
         annotationDao.insertAnnotation(annotation)
     }
+
+    fun getAnnotationById(id: Int): Annotation {
+        return annotationDao.getAnnotationById(id)
+    }
 }

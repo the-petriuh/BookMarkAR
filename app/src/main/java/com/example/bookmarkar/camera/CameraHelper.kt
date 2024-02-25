@@ -11,8 +11,6 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.*
-import androidx.camera.core.resolutionselector.AspectRatioStrategy
-import androidx.camera.core.resolutionselector.ResolutionSelector
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.app.ActivityCompat
@@ -24,7 +22,6 @@ import kotlin.math.max
 import kotlin.math.min
 import com.example.bookmarkar.MainActivity.Companion.TAG
 import com.example.bookmarkar.text.TextRecognitionAnalyzer
-import com.example.bookmarkar.texthighlighter.TextHighlighterView
 import com.google.mlkit.vision.text.Text
 
 class CameraHelper(

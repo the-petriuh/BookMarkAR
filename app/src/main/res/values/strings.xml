@@ -7,4 +7,10 @@
     <string name="button_save">Save</string>
     <string name="empty_not_saved">Word not saved because it is empty.</string>
     <string name="camera_to_get_new_annotation">Camera to get new annotation</string>
+    <string name="title_activity_edit_annotation">EditAnnotationActivity</string>
+    <string name="salvar">Salvar</string>
+    <string name="t_tulo_do_livro">Título do livro</string>
+    <string name="book_title">book title</string>
+    <string name="book_annotation_text">book annotation text</string>
+    <string name="book_page_number">book page number</string>
 </resources>

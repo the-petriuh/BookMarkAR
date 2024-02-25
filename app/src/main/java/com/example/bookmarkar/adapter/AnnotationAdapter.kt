@@ -1,5 +1,6 @@
 package com.example.bookmarkar.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.bookmarkar.EditAnnotationActivity
 import com.example.bookmarkar.R
 import com.example.bookmarkar.model.Annotation
 
@@ -30,6 +32,12 @@ class AnnotationListAdapter : ListAdapter<Annotation, AnnotationListAdapter.Anno
             bookNameView.text = currentAnnotation.bookName
             bookAnnotationContentView.text = currentAnnotation.bookAnnotation
             bookPageView.text = currentAnnotation.pageNumber.toString()
+
+            itemView.setOnClickListener {
+                val intent =  Intent(itemView.context, EditAnnotationActivity::class.java)
+                intent.putExtra("annotationId", currentAnnotation.annotationId)
+                itemView.context.startActivity(intent)
+            }
         }
 
         companion object {

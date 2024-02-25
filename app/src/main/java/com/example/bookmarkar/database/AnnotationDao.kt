@@ -19,4 +19,7 @@ interface AnnotationDao {
 
     @Query("SELECT * FROM Annotation ORDER BY annotationId ASC")
     fun getAllAnnotations(): Flow<List<Annotation>>
+
+    @Query("SELECT * FROM Annotation WHERE annotationId = :annotationID")
+    fun getAnnotationById(annotationID: Int) : Annotation
 }

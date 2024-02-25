@@ -44,13 +44,28 @@ class NewAnnotationActivity : AppCompatActivity() {
 
     private fun onDetectedTextUpdated(visionText: Text) {
         textRects.clear()
+        var adjustedRect: Rect? = null
 
         for (block in visionText.textBlocks) {
-            Log.d(TAG, "rectangle: ${block.boundingBox}")
-            //textRects.add(block.boundingBox!!)
+            for (line in block.lines) {
+                adjustedRect = adjustPosition(line.boundingBox!!)
+                if (viewBinding.cvHighlighterArea.isInsideOfHighlighterArea(adjustedRect) == true) {
+                    textRects.add(adjustedRect)
+                }
+
+            }
         }
 
-        //viewBinding.cvTextHighlighter.setTargets(textRects.toList())
+        viewBinding.cvTextHighlighter.setTargets(textRects.toList())
+    }
+
+    private fun adjustPosition(rect: Rect): Rect {
+        return Rect(
+            (rect.left * 0.85).toInt(),
+            (rect.top * 2.4).toInt(),
+            (rect.right * 2.15).toInt(),
+            (rect.bottom * 2.4).toInt()
+        )
     }
 
     override fun onDestroy() {
